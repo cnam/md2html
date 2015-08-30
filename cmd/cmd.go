@@ -6,7 +6,7 @@ import (
 )
 
 var GenerateCmd = cli.Command{
-    Name:  "daemon",
+    Name:  "generate",
     Usage: "Generate documentation",
     Flags: []cli.Flag{
         cli.StringFlag{
@@ -21,7 +21,7 @@ var GenerateCmd = cli.Command{
         },
         cli.StringFlag{
             Name:  "t",
-            Value: "documentation.tpl",
+            Value: "templates/documentation.tpl",
             Usage: "Template for generated documentation",
         },
     },

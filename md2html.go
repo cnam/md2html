@@ -6,7 +6,7 @@ import (
 	"github.com/cnam/md2html/cmd"
 )
 
-const APP_VER  = 0.1
+const APP_VER  = "0.1"
 
 func main() {
 	app := cli.NewApp()
@@ -30,7 +30,3 @@ func main() {
 	app.Run(os.Args)
 }
 
-/*const MdDir = "kanban.wiki"
-const MdSidebar = MdDir + "/_Sidebar.md"
-const HtmlDir = "documentation"
-const HtmlTemplare = "build/templates/documentation.tpl"*/
