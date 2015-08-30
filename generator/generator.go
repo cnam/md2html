@@ -49,7 +49,7 @@ func GenerateDoc(c *cli.Context) {
             page = Page{}
             page.Title = title
             page.Url = htmlDir + "/" + title + ".html"
-            page.Body = html.UnescapeString(github_flavored_markdown.Markdown(markdown))
+            page.Body = html.UnescapeString(string(github_flavored_markdown.Markdown(markdown)))
 
             pages = append(pages, page)
         }
@@ -58,7 +58,7 @@ func GenerateDoc(c *cli.Context) {
     file, err := ioutil.ReadFile(MdSidebar);
 
     if err == nil {
-        sidebar = html.UnescapeString(github_flavored_markdown.Markdown(file))
+        sidebar = html.UnescapeString(string(github_flavored_markdown.Markdown(file)))
     }
 
     for _, p := range pages {
