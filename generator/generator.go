@@ -20,9 +20,6 @@ type Page struct {
 }
 
 func GenerateDoc(c *cli.Context) {
-    var pages []Page
-    var page Page
-    var sidebar template.HTML
     mdDir := c.String("input")
     htmlDir := c.String("output")
     t := c.String("template")
@@ -32,7 +29,7 @@ func GenerateDoc(c *cli.Context) {
         return
     }
 
-    MdSidebar := c.String("input") + "/_Sidebar.md"
+    mdSidebar := c.String("input") + "/_Sidebar.md"
 
     files, err := ioutil.ReadDir(mdDir)
 
@@ -40,6 +37,41 @@ func GenerateDoc(c *cli.Context) {
         log.Panic(err);
     }
 
+    pages := generatePage(files, mdDir, htmlDir)
+    sidebar := generateSidebar(mdSidebar);
+
+    os.MkdirAll(htmlDir, 0775)
+
+    for _, p := range pages {
+        p.Template = t
+        p.Items = pages
+        p.Sidebar = sidebar
+        p.save()
+    }
+
+    if mdDir == "tmp" {
+        err = os.Remove(mdDir)
+
+        if err != nil {
+            log.Panicf("%s", err.Error())
+        }
+    }
+}
+
+func generateSidebar(mdSidebar string) (template.HTML) {
+    var sidebar template.HTML
+    file, err := ioutil.ReadFile(mdSidebar);
+
+    if err == nil {
+        sidebar = template.HTML(github_flavored_markdown.Markdown(file))
+    }
+
+    return  sidebar
+}
+
+func generatePage(files []os.FileInfo, mdDir string, htmlDir string) ([]Page) {
+    var page Page
+    var pages []Page
     for _, f := range files {
         if strings.HasSuffix(f.Name(), ".md") && ! strings.HasPrefix(f.Name(), "_") {
             markdown, err := ioutil.ReadFile(mdDir + "/"+f.Name())
@@ -60,20 +92,7 @@ func GenerateDoc(c *cli.Context) {
         }
     }
 
-    file, err := ioutil.ReadFile(MdSidebar);
-
-    if err == nil {
-        sidebar = template.HTML(github_flavored_markdown.Markdown(file))
-    }
-
-    os.MkdirAll(htmlDir, 0775)
-
-    for _, p := range pages {
-        p.Template = t
-        p.Items = pages
-        p.Sidebar = sidebar
-        p.save()
-    }
+    return  pages
 }
 
 func (p *Page) save() error {
