@@ -7,22 +7,23 @@ import (
     "log"
     "strings"
     "html/template"
+    "html"
     "github.com/codegangsta/cli"
 )
 
 type Page struct {
     Title string
     Url string
-    Body template.HTML
+    Body string
     Items []Page
-    Sidebar template.HTML
+    Sidebar string
     Template string
 }
 
 func GenerateDoc(c *cli.Context) {
     var pages []Page
     var page Page
-    var sidebar template.HTML
+    var sidebar string
     mdDir := c.String("i")
     htmlDir := c.String("o")
     template := c.String("t")
@@ -48,7 +49,7 @@ func GenerateDoc(c *cli.Context) {
             page = Page{}
             page.Title = title
             page.Url = htmlDir + "/" + title + ".html"
-            page.Body = template.HTML(github_flavored_markdown.Markdown(markdown))
+            page.Body = html.UnescapeString(github_flavored_markdown.Markdown(markdown))
 
             pages = append(pages, page)
         }
@@ -57,10 +58,11 @@ func GenerateDoc(c *cli.Context) {
     file, err := ioutil.ReadFile(MdSidebar);
 
     if err == nil {
-        sidebar = template.HTML(github_flavored_markdown.Markdown(file))
+        sidebar = html.UnescapeString(github_flavored_markdown.Markdown(file))
     }
 
     for _, p := range pages {
+        p.Template = template
         p.Items = pages
         p.Sidebar = sidebar
         p.save()
