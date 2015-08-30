@@ -23,10 +23,16 @@ func GenerateDoc(c *cli.Context) {
     var pages []Page
     var page Page
     var sidebar template.HTML
-    mdDir := c.String("i")
-    htmlDir := c.String("o")
-    t := c.String("t")
-    MdSidebar := c.String("i") + "/_Sidebar.md"
+    mdDir := c.String("input")
+    htmlDir := c.String("output")
+    t := c.String("template")
+
+    if mdDir == "" {
+        cli.ShowAppHelp(c)
+        return
+    }
+
+    MdSidebar := c.String("input") + "/_Sidebar.md"
 
     files, err := ioutil.ReadDir(mdDir)
 
