@@ -30,6 +30,11 @@ func main() {
 			Value: "templates/documentation.tpl",
 			Usage: "Template for generated documentation",
 		},
+		cli.StringFlag{
+			Name:  "path, p",
+			Value: "/docs",
+			Usage: "Path eg site example ",
+		},
 	}
 	app.Authors = []cli.Author{
 		cli.Author{
