@@ -72,9 +72,11 @@ func (d *Dir) write(parent *Dir) error {
 	}
 	sd, err := NewSidebar(d.mdDir)
 
-	if err != nil {
+	if err == nil {
+		fmt.Printf("Create new sidebar \n\t%s\n", d.mdDir)
 		d.sidebar = sd
 	} else {
+		fmt.Printf("Sidebar not found \n\t%s\n", d.mdDir)
 		d.sidebar = parent.sidebar
 	}
 

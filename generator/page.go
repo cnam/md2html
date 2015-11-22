@@ -1,13 +1,13 @@
 package generator
 
 import (
-	"github.com/shurcooL/github_flavored_markdown"
 	"os"
 	"io/ioutil"
 	"strings"
 	"html/template"
 	"fmt"
 	"errors"
+	"github.com/cnam/md2html/parser"
 )
 
 //Page represent page for generate
@@ -19,28 +19,38 @@ type Page struct {
 	Body     template.HTML
 	Sidebar  template.HTML
 	Template string
+	Seo      *Seo
+}
+
+type Seo struct {
+	Title       string
+	Description string
+	Keywords    string
 }
 
 // NewPage create new page
 func (d *Dir) NewPage(f os.FileInfo) (*Page, error) {
-	if !strings.HasSuffix(f.Name(), ".md") || strings.HasPrefix(f.Name(), "_") {
+	prs, err := parser.New(f.Name())
+	if err != nil || strings.HasPrefix(f.Name(), "_") {
 		return nil, errors.New(fmt.Sprintf("Not allowed file format %s\n", f.Name()))
 	}
 
-	markdown, err := ioutil.ReadFile(getPath(d.mdDir, f.Name()))
+	cont, err := ioutil.ReadFile(getPath(d.mdDir, f.Name()))
 
 	if (err != nil) {
 		return nil, err
 	}
 
-	title := strings.Replace(f.Name(), ".md", "", 1)
-
-	html := string(github_flavored_markdown.Markdown(markdown))
-	html = strings.Replace(html, "README.md", "index.html", -1)
-	html = strings.Replace(html, ".md", ".html", -1)
+	title := prs.GetTitle(f.Name())
+	html := prs.Parse(cont)
 
 	p := &Page{}
 	p.Title = title
+	p.Seo = &Seo{
+		Title: "",
+		Description: "",
+		Keywords: "",
+	}
 	p.Body = template.HTML(html)
 	p.Path = getPath(d.htmlDir, getUrl(p.Title) + ".html")
 	p.Url = getPath(d.path, getUrl(p.Title) + ".html")

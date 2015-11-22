@@ -11,7 +11,7 @@ You do not need anything except to git, because md2html created in golang and co
 
 We may be use installation from binary or with docker
 
-#### Installation with binary
+#### Installation from binary
 
 [Download release](https://github.com/cnam/md2html/releases)
 

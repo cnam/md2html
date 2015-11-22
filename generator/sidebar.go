@@ -3,9 +3,10 @@ package generator
 import (
 	"html/template"
 	"io/ioutil"
-	"github.com/shurcooL/github_flavored_markdown"
+	"github.com/cnam/md2html/parser"
 )
 
+// NewSidebar created new sidebar
 func NewSidebar(dir string) (template.HTML, error) {
 	mdSidebar := getPath(dir, "_Sidebar.md")
 	s, err := generateSidebar(mdSidebar);
@@ -19,12 +20,18 @@ func NewSidebar(dir string) (template.HTML, error) {
 
 func generateSidebar(mdSidebar string) (template.HTML, error) {
 	var sidebar template.HTML
+	prs,err := parser.New(mdSidebar)
+	if err != nil {
+		return "", err
+	}
+
 	file, err := ioutil.ReadFile(mdSidebar);
 
 	if err != nil {
 		return "", err
 	}
-	sidebar = template.HTML(github_flavored_markdown.Markdown(file))
+
+	sidebar = template.HTML(prs.Parse(file))
 
 	return sidebar, nil
 }
