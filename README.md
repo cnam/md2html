@@ -106,3 +106,10 @@ Your must be create html template with variables [example](https://github.com/cn
     </ul>
 {{end}}
 ```
+
+### Create sidebar as static file
+
+In order to make your sidebar in each sub-directory, he can be your own or a common,
+if it is set within a directory in the root of the documentation.
+
+Sidebar represents as **_Sidebar.md** file and allow markdown syntax
