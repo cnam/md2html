@@ -1,4 +1,4 @@
-package main
+package main // import "github.com/cnam/md2html"
 
 import (
 	"github.com/codegangsta/cli"
@@ -6,7 +6,7 @@ import (
 	"github.com/cnam/md2html/generator"
 )
 
-const APP_VER  = "0.1"
+const APP_VER  = "0.2.0"
 
 func main() {
 	app := cli.NewApp()
@@ -18,7 +18,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "input, i",
-			Usage: "Direcotory with markdown files",
+			Usage: "Directory with markdown files",
 		},
 		cli.StringFlag{
 			Name:  "output, o",

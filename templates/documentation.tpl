@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Documentation | {{ .Title }} </title>
+    <title>{{ .Title }} </title>
 </head>
 <body>
     <div>{{ .Sidebar }}</div>
