@@ -5,25 +5,25 @@ help:
 	@echo " build   - create binary and new docker image \n"\
           "release - push new docker image"
 
-bin/linux/x86_64/md2html: $(find $(CURDIR) -name "*.go" -type f)
+bin/x86_64/linux_md2html: $(find $(CURDIR) -name "*.go" -type f)
 	@docker run --rm \
 		-v $(CURDIR):/src \
 		-e GOOS=linux \
 		-e GOARCH=amd64 \
 		leanlabs/golang-builder
 
-	-mkdir -p $(CURDIR)/bin/linux/x86_64/
-	@mv md2html $(CURDIR)/bin/linux/x86_64/md2html-$(TAG)
+	-mkdir -p $(CURDIR)/bin/x86_64/
+	@mv md2html $(CURDIR)/bin/x86_64/linux_md2html
 
-bin/darwin/x86_64/md2html: $(find $(CURDIR) -name "*.go" -type f)
+bin/x86_64/darwin_md2html: $(find $(CURDIR) -name "*.go" -type f)
 	@docker run --rm \
 		-v $(CURDIR):/src \
 		-e GOOS=darwin \
 		-e GOARCH=amd64 \
 		leanlabs/golang-builder
 
-	-mkdir -p $(CURDIR)/bin/darwin/x86_64/
-	@mv md2html $(CURDIR)/bin/darwin/x86_64/md2html-$(TAG)
+	-mkdir -p $(CURDIR)/bin/x86_64/
+	@mv md2html $(CURDIR)/bin/x86_64/darwin_md2html
 
 md2html: $(find $(CURDIR) -name "*.go" -type f)
 	@docker run --rm \
@@ -34,7 +34,7 @@ docker_build:
 	@docker build -t $(IMAGE) .
 	@docker tag $(IMAGE):latest $(IMAGE):$(TAG)
 
-build: bin/linux/x86_64/md2html bin/darwin/x86_64/md2html md2html docker_build
+build: bin/x86_64/linux_md2html bin/x86_64/darwin_md2html md2html docker_build
 
 release:
 	@docker push $(IMAGE):latest
