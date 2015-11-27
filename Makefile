@@ -1,6 +1,6 @@
 help:
 	@echo "build - create release for production with compiled docs\n" \
-		  "start - start development environment"
+	      "start - start development environment"
 
 build:
 	@rm -rf documentation/*
