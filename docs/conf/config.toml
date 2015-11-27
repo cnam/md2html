@@ -1,0 +1,16 @@
+[server]
+listen   = "0.0.0.0:80"
+hostname = "http://localhost"
+
+[security]
+secret = "qwerty"
+
+[gitlab]
+url    = "https://gitlab.com"
+client = "qwerty"
+secret = "qwerty"
+
+[redis]
+addr     = "127.0.0.1:6379"
+password = ""
+db       = 0

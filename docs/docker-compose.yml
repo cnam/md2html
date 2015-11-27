@@ -1,0 +1,36 @@
+proxy:
+  image: leanlabs/nginx:1.0.1
+  volumes:
+    - "./build/conf.d:/etc/nginx/conf.d"
+    - "./build/certs:/etc/nginx/certs"
+    - "./build/sites-enabled:/etc/nginx/sites-enabled"
+  links: 
+    - kanban:kanban
+  ports:
+    - "443:443"
+    - "80:80"
+
+kanban:
+  image: leanlabs/kanban:1.4.2
+  environment:
+    # URL on which Leanlabs Kanban will be reachable
+    - KANBAN_SERVER_HOSTNAME=http://kanban.gitlab.com
+    # This string is used to generate user auth tokens
+    - KANBAN_SECURITY_SECRET=qwerty
+    # Your GitLab host URL
+    - KANBAN_GITLAB_URL=https://gitlab.com
+    # Your GitLab OAuth client ID
+    - KANBAN_GITLAB_CLIENT=qwerty
+    # Your GitLab OAuth client secret key
+    - KANBAN_GITLAB_SECRET=qwerty
+    # Redis server address - IP:PORT
+    - KANBAN_REDIS_ADDR=redis:6379
+  links:
+    - redis:redis
+  command: ./kanban server
+
+redis:
+  image: leanlabs/redis:1.0.0
+  volumes:
+    - "/data:/data"
+
