@@ -4,7 +4,7 @@
 
 - [From binary](/docs/installation/binary)
 
-#### [Configuration][/docs/configuration]
+#### [Configuration](/docs/configuration)
 
 - [Web servers](/docs/configuration/webserver)
    - [apache](/docs/configuration/webserver/apache)
