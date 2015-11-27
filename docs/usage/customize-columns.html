@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Kanban documentation | README</title>
+		<title>Kanban documentation | customize-columns</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<meta name="description" content="Documentation for installation and custumisation gitlab kanban board for issues"/>
 		<meta name="keywords" content="gitlab, kanban, gitlab kanban board documentation"/>
@@ -62,7 +62,11 @@
                                         <li><a href="/documentation">Home</a></li>
                                     
                                         
-                                        <li><a href="//docs/index.html">README</a></li>
+                                        <li><a href="//docs/usage/index.html">README</a></li>
+                                        
+                                    
+                                        
+                                        <li><a href="//docs/usage/customize-columns.html">customize-columns</a></li>
                                         
                                     
                                     </ul>
@@ -70,19 +74,39 @@
 							</nav>
 						</section>
 						<section class="9u 12u$(small)">
-                            <h1><a name="leanlabs-kanban-documentation" class="anchor" href="#leanlabs-kanban-documentation" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>LeanLabs Kanban Documentation</h1>
+                            <h1><a name="customizing-columns" class="anchor" href="#customizing-columns" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customizing columns</h1>
 
-<p>The source for LeanLabs Kanban documentation is in this directory.</p>
+<p>Kanban relies on specially formatted labels in your project for it&#39;s work. Kanban LeanLabs labels use the following pattern.</p>
 
-<p>This is work in progress, feel free to <a href="https://gitlab.com/leanlabsio/kanban/issues" rel="nofollow">submit an issues</a> or contribute to help improve documentation.</p>
-<h3><a name="installation" class="anchor" href="#installation" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Installation</h3>
+<blockquote>
+<p>KB[stage][0][Backlog]</p>
+</blockquote>
 
-<p><a href="http://kanban.leanlabs.io/documentation/Home" rel="nofollow">Installation instructions</a></p>
-<h3><a name="configuration" class="anchor" href="#configuration" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Configuration</h3>
+<p><strong>Where:</strong></p>
 
-<p><a href="/docs/configuration" rel="nofollow">Configuration guides</a></p>
+<blockquote>
+<p>KB[stage]  - reserved prefix for columns</p>
+
+<p>[0] - position columns</p>
+
+<p>[Backlog] - column title</p>
+</blockquote>
+
+<p>LeanLabs board configuration by default creates labels</p>
+
+<blockquote>
+<p>KB[stage][0][Backlog]</p>
+
+<p>KB[stage][1][Analysis]</p>
+
+<p>KB[stage][2][Development]</p>
+
+<p>KB[stage][3][Testing]</p>
+
+<p>KB[stage][4][Production]</p>
+
+<p>KB[stage][5][Ready]</p>
+</blockquote>
 
                             <footer class="align-center">
                                 <ul class="actions">

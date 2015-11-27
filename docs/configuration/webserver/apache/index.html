@@ -62,7 +62,7 @@
                                         <li><a href="/documentation">Home</a></li>
                                     
                                         
-                                        <li><a href="//docs/index.html">README</a></li>
+                                        <li><a href="//docs/configuration/webserver/apache/index.html">README</a></li>
                                         
                                     
                                     </ul>
@@ -70,19 +70,47 @@
 							</nav>
 						</section>
 						<section class="9u 12u$(small)">
-                            <h1><a name="leanlabs-kanban-documentation" class="anchor" href="#leanlabs-kanban-documentation" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>LeanLabs Kanban Documentation</h1>
+                            <h1><a name="apache-web-server-configuration-guide" class="anchor" href="#apache-web-server-configuration-guide" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apache web server configuration guide</h1>
 
-<p>The source for LeanLabs Kanban documentation is in this directory.</p>
+<p>The configuration files in this directory was tested with Apache version 2.4.7.</p>
 
-<p>This is work in progress, feel free to <a href="https://gitlab.com/leanlabsio/kanban/issues" rel="nofollow">submit an issues</a> or contribute to help improve documentation.</p>
-<h3><a name="installation" class="anchor" href="#installation" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Installation</h3>
+<p>To set up kanban you first need to enable several additional apache modules:</p>
 
-<p><a href="http://kanban.leanlabs.io/documentation/Home" rel="nofollow">Installation instructions</a></p>
-<h3><a name="configuration" class="anchor" href="#configuration" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Configuration</h3>
+<ul>
+<li>proxy_wstunnel (to proxy web sockets)</li>
+<li>proxy</li>
+<li>proxy_http</li>
+</ul>
+<h2><a name="common-issues" class="anchor" href="#common-issues" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Common issues</h2>
 
-<p><a href="/docs/configuration" rel="nofollow">Configuration guides</a></p>
+<p>Internally Kanban uses GitLab API. So misconfiguration of GitLab web server could lead to potentially kanban malfunction.
+Here you will find common issues we faced with GitLab + Apache setup and how to solve them.</p>
+
+<ol>
+<li><p>Boards are not showing up.</p>
+
+<p>The simptoms - you could login to kanban, you could see projects list in kanban, but could not open any board.</p>
+
+<p>First of all check you GitLab apache config contains rewrite rules like this one:</p>
+
+<pre><code>RewriteRule .* http://127.0.0.1:8080%{REQUEST_URI} [P,QSA]
+</code></pre>
+
+<p>Note the flags [P,QSA] - these are not enough for GitLab API to work properly, there must be NE flag present, so the proper rule is:</p>
+
+<pre><code>RewriteRule .* http://127.0.0.1:8080%{REQUEST_URI} [NE,P,QSA]
+</code></pre>
+
+<p>Also, please check the <a href="https://github.com/gitlabhq/gitlab-recipes/tree/master/web-server/apache" rel="nofollow">gitlab recipes repo</a> for latest apache configs.</p></li>
+
+<li><p>Kanban reloads in a loop.</p>
+
+<p>The simptoms - you could login to kanban, but then browser keep reloading the page.</p>
+
+<p>This could be caused by websockets proxy misconfiguration. Kanban listens for websocket connections on /ws/ location,
+so it should be proxied properly and there must be Host, Connection and Upgrade headers present.</p></li>
+</ol>
 
                             <footer class="align-center">
                                 <ul class="actions">
