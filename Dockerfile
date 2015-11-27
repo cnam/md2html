@@ -2,4 +2,4 @@ FROM scratch
 
 COPY ./md2html ./
 
-CMD ["./md2html"]
+ENTRYPOINT ["./md2html"]
