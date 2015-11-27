@@ -16,4 +16,17 @@ start:
 stop:
 	@docker-compose stop
 
+release:
+	@ssh-keyscan -H -p 22 github.com >> ~/.ssh/known_hosts
+	@rm -rf kanban.wiki
+	@rm -rf documentation/.git
+	@rm -rf docs/.git
+	@git config --global user.email "cnam812@gmail.com"
+	@git config --global user.name "cnam-dep"
+	
+deploy:
+	@git add docs || true
+	@git commit -m 'automatic deploy' || true
+	@git push --force origin gh-pages || true
+
 .PHONY: build
