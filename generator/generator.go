@@ -20,8 +20,11 @@ func GenerateDoc(c *cli.Context) {
 	fmt.Println("Begin generate")
 
 	parent := &Dir{sidebar:""};
-	dir := NewDir(md, html, t, path)
-	err := dir.read()
+	dir, err := NewDir(md, html, t, path)
+	if (err != nil) {
+		fmt.Printf("Error read dir %s\n \t%s\n", dir.mdDir, err.Error())
+	}
+	err = dir.read()
 
 	if err != nil {
 	  fmt.Printf("Error read dir %s\n \t%s\n", dir.mdDir, err.Error())

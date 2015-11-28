@@ -1,5 +1,5 @@
 IMAGE = cnam/md2html
-TAG   = 0.2.0
+TAG   = 0.2.1
 
 help:
 	@echo " build   - create binary and new docker image \n"\

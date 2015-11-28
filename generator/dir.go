@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"html/template"
+	"strings"
+	"errors"
 )
 
 // Dir represents file directory
@@ -19,13 +21,17 @@ type Dir struct {
 }
 
 // NewDir returns new dir
-func NewDir(md, html, t, path string) *Dir {
+func NewDir(md, html, t, path string) (*Dir, error) {
+	if strings.HasPrefix(".", md) {
+		return nil, errors.New("Ignored directory")
+	}
+
 	return &Dir{
 		mdDir: md,
 		htmlDir: html,
 		template: t,
 		path: path,
-	}
+	}, nil
 }
 // read reading all child directory and pages from dir
 func (d *Dir) read() error {
@@ -41,13 +47,15 @@ func (d *Dir) read() error {
 
 	for _, f := range fi {
 		if f.Mode().IsDir() {
-			dir := NewDir(getPath(d.mdDir, f.Name()),
+			dir, err := NewDir(getPath(d.mdDir, f.Name()),
 				getPath(d.htmlDir, f.Name()),
 				d.template,
 				getPath(d.path, f.Name()),
 			)
-			dir.read()
-			d.addDir(dir)
+			if (err == nil) {
+				dir.read()
+				d.addDir(dir)
+			}
 		}
 		if f.Mode().IsRegular() {
 			page, err := d.NewPage(f)

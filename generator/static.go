@@ -4,6 +4,8 @@ import (
 	"os"
 	"io/ioutil"
 	"fmt"
+	"strings"
+	"errors"
 )
 
 //Static file represents need copy
@@ -15,6 +17,10 @@ type StaticFile struct {
 // NewStatic creating new static file
 func (d *Dir) NewStatic(f os.FileInfo) (*StaticFile, error) {
 	body, err := ioutil.ReadFile(getPath(d.mdDir, f.Name()))
+
+	if strings.HasPrefix(f.Name(), "_") {
+		return nil, errors.New(fmt.Sprintf("Not allowed file %s\n", f.Name()))
+	}
 
 	if (err != nil) {
 		return nil, err
