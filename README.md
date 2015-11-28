@@ -58,6 +58,7 @@ md2html -i wiki.dir -o documentation -t template.tpl -p /docs
 - **-o or --output** Directory for output generated html files
 - **-t or --template** Template for generated documentation
 - **-p or --path** Subdirectory in site eg /docs where documentation location
+- **-s or --sidebar** Path to your custom sidebar
 
 ### Templates
 
