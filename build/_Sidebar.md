@@ -7,7 +7,9 @@
 #### [Configuration](/docs/configuration)
 
 - [Web servers](/docs/configuration/webserver)
+
    - [apache](/docs/configuration/webserver/apache)
+
    - [nginx](/docs/configuration/webserver/nginx)
 
 #### [Usage](/docs/usage)

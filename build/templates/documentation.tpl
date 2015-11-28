@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
         <link rel="stylesheet" href="/css/github-markdown.css">
 	</head>
-	<body>
+	<body class="docs">
 
 		<!-- Header -->
 			<header id="header">
