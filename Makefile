@@ -3,12 +3,11 @@ help:
 	      "start - start development environment"
 
 build:
-	@rm -rf documentation/*
+	@rm -rf docs/*
 	@docker run --rm -v $(CURDIR):/data leanlabs/git-builder submodule init
 	@docker run --rm -v $(CURDIR):/data leanlabs/git-builder submodule update
-	@cp build/_Sidebar.md kanban.wiki/docs
 	@docker run --rm -w /data/kanban.wiki -v $(CURDIR):/data leanlabs/git-builder pull origin master
-	@docker run --rm -v $(CURDIR):/data cnam/md2html -p /docs -o /data/docs -t /data/build/templates/documentation.tpl -i /data/kanban.wiki/docs
+	@docker run --rm -v $(CURDIR):/data cnam/md2html -s /data/build/_Sidebar.md -p /docs -o /data/docs -t /data/build/templates/documentation.tpl -i /data/kanban.wiki/docs
 
 start:
 	@docker-compose up -d
