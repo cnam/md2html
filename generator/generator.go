@@ -11,6 +11,7 @@ func GenerateDoc(c *cli.Context) {
 	html := c.String("output")
 	t := c.String("template")
 	path := c.String("path")
+	sidebar := c.String("sidebar")
 
 	if md == "" {
 		cli.ShowAppHelp(c)
@@ -18,8 +19,9 @@ func GenerateDoc(c *cli.Context) {
 	}
 
 	fmt.Println("Begin generate")
+	sb, _ := NewSidebar(sidebar);
+	parent := &Dir{sidebar: sb};
 
-	parent := &Dir{sidebar:""};
 	dir, err := NewDir(md, html, t, path)
 	if (err != nil) {
 		fmt.Printf("Error read dir %s\n \t%s\n", dir.mdDir, err.Error())
@@ -27,7 +29,7 @@ func GenerateDoc(c *cli.Context) {
 	err = dir.read()
 
 	if err != nil {
-	  fmt.Printf("Error read dir %s\n \t%s\n", dir.mdDir, err.Error())
+		fmt.Printf("Error read dir %s\n \t%s\n", dir.mdDir, err.Error())
 	}
 	err = dir.write(parent)
 

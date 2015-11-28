@@ -6,7 +6,7 @@ import (
 	"github.com/cnam/md2html/generator"
 )
 
-const APP_VER  = "0.2.0"
+const APP_VER  = "0.2.2"
 
 func main() {
 	app := cli.NewApp()
@@ -34,6 +34,11 @@ func main() {
 			Name:  "path, p",
 			Value: "/docs",
 			Usage: "Path eg site example ",
+		},
+		cli.StringFlag{
+			Name:  "sidebar, s",
+			Value: "_Sidebar.md",
+			Usage: "Path to sidebar file",
 		},
 	}
 	app.Authors = []cli.Author{

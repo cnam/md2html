@@ -8,8 +8,7 @@ import (
 
 // NewSidebar created new sidebar
 func NewSidebar(dir string) (template.HTML, error) {
-	mdSidebar := getPath(dir, "_Sidebar.md")
-	s, err := generateSidebar(mdSidebar);
+	s, err := generateSidebar(dir);
 
 	if err != nil {
 		return "", err
