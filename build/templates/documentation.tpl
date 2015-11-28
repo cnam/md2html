@@ -29,13 +29,9 @@
 		<script src="/js/skel.min.js"></script>
 		<script src="/js/skel-layers.min.js"></script>
 		<script src="/js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="/css/skel.css"/>
-			<link rel="stylesheet" href="/css/style.css"/>
-			<link rel="stylesheet" href="/css/style-xlarge.css"/>
-		</noscript>
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+        <link rel="stylesheet" href="/css/github-markdown.css">
 	</head>
 	<body>
 
@@ -74,9 +70,11 @@
                                 {{end}}
 							</nav>
 						</section>
-						<section class="9u 12u$(small)">
+						<article class="9u 12u$(small)">
+						    <section class="markdown-body">
                             {{ .Body}}
-                            <footer class="align-center">
+                            </section>
+                            <footer style="margin-top: 40px;" class="align-center">
                                 <ul class="actions">
                                     <li>
                                         <a href="http://demo.kanban.leanlabs.io" target="_blank" class="button alt big">Try demo</a>
