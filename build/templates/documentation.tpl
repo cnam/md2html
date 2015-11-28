@@ -33,8 +33,8 @@
         <link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
         <link rel="stylesheet" href="/css/github-markdown.css">
 	</head>
-	<body class="docs">
 
+	<body class="docs">
 		<!-- Header -->
 			<header id="header">
 				<h1><a href="/"><img style="height:50px; margin-top: 15px;" src="/images/logo.png" alt="leanlabs"></a></h1>
