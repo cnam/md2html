@@ -11,6 +11,7 @@
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word;
+  font-weight: normal;
 }
 
 .markdown-body a {
@@ -127,6 +128,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   line-height: 1.1;
+  letter-spacing: 0;
 }
 
 .markdown-body h1 {
