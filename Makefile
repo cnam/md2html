@@ -1,40 +1,33 @@
-IMAGE = cnam/md2html
+PROJECT = md2html
+IMAGE = cnam/$(PROJECT)
 TAG   = 0.2.2
+OBJDIR = bin
+OBJS  = $(OBJDIR)/amd64(darwin_$(PROJECT) linux_$(PROJECT))
 
 help:
 	@echo " build   - create binary and new docker image \n"\
-          "release - push new docker image"
+	      "release - push new docker image"
 
-bin/x86_64/linux_md2html: $(find $(CURDIR) -name "*.go" -type f)
+$(OBJS): $(find $(CURDIR) -name "*.go" -type f)
 	@docker run --rm \
-		-v $(CURDIR):/src \
-		-e GOOS=linux \
-		-e GOARCH=amd64 \
-		leanlabs/golang-builder
+			-v $(CURDIR):/src \
+			-e GOOS=$(shell echo $%|sed -e "s/_$(PROJECT)//") \
+			-e GOARCH=$(shell echo $(@D)|sed -e "s#$(OBJDIR)##") \
+			leanlabs/golang-builder
 
-	-mkdir -p $(CURDIR)/bin/x86_64/
-	@mv md2html $(CURDIR)/bin/x86_64/linux_md2html
+	-@mkdir -p $(CURDIR)/$@
+	@mv $(PROJECT) $(CURDIR)/$@$%
 
-bin/x86_64/darwin_md2html: $(find $(CURDIR) -name "*.go" -type f)
-	@docker run --rm \
-		-v $(CURDIR):/src \
-		-e GOOS=darwin \
-		-e GOARCH=amd64 \
-		leanlabs/golang-builder
-
-	-mkdir -p $(CURDIR)/bin/x86_64/
-	@mv md2html $(CURDIR)/bin/x86_64/darwin_md2html
-
-md2html: $(find $(CURDIR) -name "*.go" -type f)
+$(PROJECT): $(find $(CURDIR) -name "*.go" -type f)
 	@docker run --rm \
 		-v $(CURDIR):/src \
 		leanlabs/golang-builder
 
-docker_build:
+docker_build: $(PROJECT)
 	@docker build -t $(IMAGE) .
 	@docker tag $(IMAGE):latest $(IMAGE):$(TAG)
 
-build: bin/x86_64/linux_md2html bin/x86_64/darwin_md2html md2html docker_build
+build: $(OBJS) docker_build
 
 release:
 	@docker push $(IMAGE):latest
