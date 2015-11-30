@@ -30,9 +30,12 @@
 		<script src="/js/init.js"></script>
         
         <link rel="stylesheet" href="/css/github-markdown.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 	</head>
-	<body class="docs">
 
+	<body class="docs">
 		
 			<header id="header">
 				<h1><a href="/"><img style="height:50px; margin-top: 15px;" src="/images/logo.png" alt="leanlabs"></a></h1>
@@ -104,9 +107,9 @@ Running the binary</h2>
 
 <p>Or you could do it like this for Ubuntu:</p>
 
-<div class="highlight highlight-bash"><pre>apt-get install redis-server
+<pre><code class="bash">apt-get install redis-server
 service redis-server start
-</pre></div>
+</code></pre>
 
 <p><strong>NOTE</strong> For now LeanLabs Kanban can access Redis only via port, e.g. &#34;127.0.0.1:6379&#34;.</p></li>
 
@@ -138,14 +141,14 @@ service redis-server start
 
 <p>Now you could start kanban, do not forget to provide GitLab OAuth client ID and client secret to kanban.</p>
 
-<div class="highlight highlight-bash"><pre>kanban server
+<pre><code class="bash">kanban server
     --server-listen=&#34;0.0.0.0:80&#34;
     --server-hostname=&#34;http://mykanban.com&#34;
     --gitlab-url=&#34;https://gitlab.com&#34;
     --gitlab-client=&#34;Application ID&#34;
     --gitlab-secret=&#34;Application secret&#34;
     --redis-addr=&#34;127.0.0.1:6379&#34;
-</pre></div>
+</code></pre>
 
 <p>That is it. Now you should be able to access board on &#34;<a href="http://mykanban.com%22" rel="nofollow">http://mykanban.com&#34;</a> and login via GitLab OAuth.</p></li>
 </ol>
@@ -182,8 +185,8 @@ Available configuration options</h2>
 
 <p>You could list available options with &#34;--help&#34; subcommand:</p>
 
-<div class="highlight highlight-bash"><pre>kanban server --help
-</pre></div>
+<pre><code class="bash">kanban server --help
+</code></pre>
 <h2><a name="setting-up-behind-proxy" class="anchor" href="#setting-up-behind-proxy" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 Setting up behind proxy.</h2>
 

@@ -30,9 +30,12 @@
 		<script src="/js/init.js"></script>
         
         <link rel="stylesheet" href="/css/github-markdown.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 	</head>
-	<body class="docs">
 
+	<body class="docs">
 		
 			<header id="header">
 				<h1><a href="/"><img style="height:50px; margin-top: 15px;" src="/images/logo.png" alt="leanlabs"></a></h1>
@@ -98,21 +101,21 @@ Running the image</h2>
 <ol>
 <li><p>Start the Redis container:</p>
 
-<div class="highlight highlight-bash"><pre>docker run -d -p 6379:6379 --name kanban_redis leanlabs/redis:1.0.0
-</pre></div>
+<pre><code class="bash">docker run -d -p 6379:6379 --name kanban_redis leanlabs/redis:1.0.0
+</code></pre>
 
 <p>This will start redis container with name kanban_redis, in daemon mode, mapping it 6379 port to host 6379 port.</p></li>
 
 <li><p>Start kanban container:</p>
 
-<div class="highlight highlight-bash"><pre>docker run -d -p
+<pre><code class="bash">docker run -d -p
     --link kanban_redis:kanban_redis
     -p 80:80
     -e KANBAN_SERVER_HOSTNAME=&#34;http://localhost&#34;
     -e KANBAN_GITLAB_URL=&#34;http://mygitlab.com&#34;
     -e KANBAN_REDIS_ADDR=&#34;kanban_redis:6379&#34;
     leanlabs/kanban:1.4.0
-</pre></div>
+</code></pre>
 
 <p>This will start kanban board container in daemon mode, linked to redis container.</p>
 
@@ -160,7 +163,7 @@ Setting up OAuth via GitLab</h2>
 
 <p>Now the command to running the kanban container should be:</p>
 
-<div class="highlight highlight-bash"><pre>docker run -d -p
+<pre><code class="bash">docker run -d -p
     --link kanban_redis:kanban_redis
     -p 80:80
     -e KANBAN_SERVER_HOSTNAME=&#34;http://localhost&#34;
@@ -169,7 +172,7 @@ Setting up OAuth via GitLab</h2>
     -e KANBAN_GITLAB_SECRET=&#34;Secret&#34;
     -e KANBAN_REDIS_ADDR=&#34;kanban_redis:6379&#34;
     leanlabs/kanban:1.4.0 
-</pre></div>
+</code></pre>
 
 <p>Now you should be able to access kanban via GitLab OAuth.</p>
 

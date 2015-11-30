@@ -32,6 +32,9 @@
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
         <link rel="stylesheet" href="/css/github-markdown.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 	</head>
 
 	<body class="docs">
