@@ -1,9 +1,9 @@
 FROM scratch
 
-COPY ./md2html ./
+COPY ./md2html /usr/local/bin
 
 VOLUME ["/data", "/cache"]
 
 WORKDIR /data
 
-ENTRYPOINT ["./md2html"]
+ENTRYPOINT ["md2html"]
