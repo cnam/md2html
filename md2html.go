@@ -6,7 +6,7 @@ import (
 	"github.com/cnam/md2html/generator"
 )
 
-const APP_VER  = "0.2.2"
+const APP_VER  = "0.2.3"
 
 func main() {
 	app := cli.NewApp()

@@ -1,6 +1,6 @@
 PROJECT = md2html
 IMAGE = cnam/$(PROJECT)
-TAG   = 0.2.2
+TAG   = 0.2.3
 OBJDIR = bin
 OBJS  = $(OBJDIR)/amd64(darwin_$(PROJECT) linux_$(PROJECT))
 
