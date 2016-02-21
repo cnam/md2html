@@ -6,6 +6,7 @@ OBJS  = $(OBJDIR)/amd64(darwin_$(PROJECT) linux_$(PROJECT))
 
 all: build
 
+
 help:
 	@echo " build   - create binary and new docker image \n"\
 	      "release - push new docker image"
